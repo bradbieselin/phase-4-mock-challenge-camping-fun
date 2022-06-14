@@ -4,12 +4,12 @@ rescue_from ActiveRecord::RecordInvalid, with: :not_valid
 
     def index
         campers = Camper.all 
-        render json: campers, only: [:id, :name, :age], status: :ok
+        render json: campers, status: :ok
     end
 
     def show
         camper = Camper.find(params[:id])
-        render json: camper, include: :activities, status: :ok
+        render json: camper, serializer: CamperActivitiesSerializer, status: :ok
     end
 
     def create
